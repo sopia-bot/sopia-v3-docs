@@ -1,0 +1,16 @@
+{
+	"title": "SOPIA v3",
+	"description": "SOPIA v3 프로그램에 대한 사용법",
+	"icon": "Building",
+	"root": true,
+	"pages": [
+		"---소개---",
+		"index",
+		"what-is-sopia",
+		"---시작하기---",
+		"signup",
+		"spoon-login",
+		"join-live",
+		"bot-message"
+	]
+}

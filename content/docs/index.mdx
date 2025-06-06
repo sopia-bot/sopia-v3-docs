@@ -1,13 +1,48 @@
 ---
-title: Hello World
-description: Your first document
+title: 바로 시작하기
+description: 마음이 급한 한국인들이 바로 사용할 수 있도록 준비했습니다.
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+import { CpuIcon, Database, PanelsTopLeft, Terminal } from 'lucide-react';
+import { CurrentDownloadButton } from './download-button';
 
-## What is Next?
 
-<Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.vercel.app" />
-</Cards>
+## 소개
+
+SOPIA <span className='text-fd-muted-foreground text-sm'>(소피아)</span>는 **방송용 매니저 프로그램**으로, <a href="https://www.spooncast.net/" className='text-[#FF4100]' target="_blank">스푼라디오</a>방송에 사용되는 프로그램입니다.
+<br/>방송의 반복적인 작업을 줄여주고, 다양한 컨텐츠를 추가할 수 있습니다.
+
+<Callout title="소피아의 배경 이야기가 궁금하신가요?">
+  [소피아란?](/docs/what-is-sopia) 문서를 읽어보세요.
+</Callout>
+
+## 설치
+
+<Callout type="warning" title="소피아는 Windows 10 이상의 Windows 운영체제에서 실행됩니다.">
+개발 여건의 부족으로 인해 다른 운영체제의 지원은 계속 미뤄지고 있습니다. ~~7년째~~
+</Callout>
+
+아래 버튼을 눌러 최신버전의 소피아 설치 파일을 다운받으세요.
+
+<CurrentDownloadButton />
+
+
+
+### 설치가 안 될 경우
+
+<Accordions>
+    <Accordion id='edge-download' title="Edge 브라우저에서 다운이 안 돼요">
+      ![Edge](/docs/edge-download.png)
+
+      1. 다운로드 파일에 마우스를 갖다댄 뒤, 오른쪽에 ... 아이콘을 누릅니다.
+      2. 유지 버튼을 누릅니다.
+
+      ![Edge2](/docs/edge-download2.png)
+
+      3. 더 보기를 눌러 추가 메뉴를 확인합니다.
+      4. <span className="font-bold text-blue-600">그래도 계속</span> 버튼을 눌러 설치를 진행합니다.
+      
+
+    </Accordion>
+</Accordions>
+
