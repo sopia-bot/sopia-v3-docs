@@ -8,6 +8,7 @@ const config = {
 	images: {
 		remotePatterns: [new URL("http://kr-cdn.spooncast.net/**")],
 	},
+	transpilePackages: ["next-mdx-remote"],
 };
 
 export default withMDX(config);

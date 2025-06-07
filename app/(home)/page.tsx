@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import UserProfile from "./user-profile";
 
 interface ButtonProps {
 	children: ReactNode;
@@ -79,21 +80,7 @@ function FeatureCard({
 export default async function HomePage() {
 	// Windsurf 스타일을 적용하기 위해 기존 컴포넌트 구조를 일부 수정하고 새로운 섹션을 추가합니다.
 	// 이미지 대신 div 스켈레톤 또는 아이콘을 사용합니다.
-	const result = await fetch("https://kr-api.spooncast.net/users/2100369").then(
-		(res) => res.json(),
-	);
-
-	let user: any = null;
-	if (result.status_code === 200) {
-		user = result.results[0];
-	}
-
-	const followerStr = (cnt: number) => {
-		if (cnt >= 1000) {
-			return `${(cnt / 1000).toFixed(2)}k`;
-		}
-		return cnt.toString();
-	};
+	
 
 	return (
 		<main className="flex flex-1 flex-col items-center py-16 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -151,32 +138,8 @@ export default async function HomePage() {
 								큰 도움이 됩니다.
 							</p>
 						</blockquote>
-						<div className="mt-8 flex flex-col items-center text-center">
-							<div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mb-4 ring-2 ring-[#FF5500] p-1">
-								{user ? (
-									<Image
-										src={user.profile_url}
-										alt={user.nickname}
-										width={80}
-										height={80}
-										className="rounded-full"
-									/>
-								) : (
-									<UserIcon className="w-10 h-10 text-[#FF5500]" />
-								)}
-							</div>
-							<div>
-								<Link
-									href={"https://www.spooncast.net/kr/channel/2100369/tab/home"}
-									target="_blank"
-									className="text-xl font-bold text-card-foreground hover:underline"
-								>
-									{user?.nickname || "연하영"}
-								</Link>
-								<p className="text-md text-muted-foreground">
-									팔로워: {followerStr(user?.follower_count || 0)}
-								</p>
-							</div>
+						<div className="mt-8">
+							<UserProfile userId={2100369} />
 						</div>
 					</div>
 				</div>
@@ -193,7 +156,7 @@ export default async function HomePage() {
 						/>
 						<FeatureCard
 							title="룰렛"
-							description="후원 연동 룰렛 다양한 조건으로 룰렛을 설정하고, 방송에 재미를 더하세요. 당첨 확률과 상품을 자유롭게 커스터마이징할 수 있습니다."
+							description="다양한 조건으로 룰렛을 설정하고, 방송에 재미를 더하세요. 당첨 확률과 상품을 자유롭게 커스터마이징할 수 있습니다."
 							icon={<Gift className="h-8 w-8 text-blue-600" />}
 						/>
 						<FeatureCard
