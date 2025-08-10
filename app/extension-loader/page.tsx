@@ -45,8 +45,8 @@ function ExtensionLoaderContent() {
 
 		// 확장 프로그램 설치 여부 확인
 		const checkExtension = () => {
-			// @ts-ignore - window.using_sopia_flag는 확장 프로그램에서 설정
-			if (window.using_sopia_flag === true) {
+			// @ts-ignore - window.$sopia 객체가 있으면 확장 프로그램이 설치된 것
+			if (window.$sopia) {
 				// 확장 프로그램이 설치되어 있으면 바로 리다이렉트
 				setStatus("redirecting");
 				setTimeout(() => {
