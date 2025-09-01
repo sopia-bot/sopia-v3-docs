@@ -80,7 +80,6 @@ function FeatureCard({
 export default async function HomePage() {
 	// Windsurf 스타일을 적용하기 위해 기존 컴포넌트 구조를 일부 수정하고 새로운 섹션을 추가합니다.
 	// 이미지 대신 div 스켈레톤 또는 아이콘을 사용합니다.
-	
 
 	return (
 		<main className="flex flex-1 flex-col items-center py-16 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -211,7 +210,7 @@ export default async function HomePage() {
 						당신의 목소리는 완벽하단걸
 						<br />더 많은 사람에게 알려주자구요.
 					</h2>
-					<Link href="/docs/installation" className="inline-block">
+					<Link href="/docs" className="inline-block">
 						<Button
 							size="lg"
 							className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-xl transform transition-all hover:scale-105 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 gap-3 px-8 py-4 rounded-lg text-lg"
