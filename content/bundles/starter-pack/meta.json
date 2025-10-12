@@ -1,0 +1,15 @@
+{
+	"title": "소피아 통합 번들팩",
+	"description": "소피아를 시작할 때 필요한 번들 모음집",
+	"icon": "Package",
+	"pages": [
+		"fanscore",
+		"lottery",
+		"roulette",
+		"shield",
+		"management",
+		"commands",
+		"faq",
+		"tips-and-tricks"
+	]
+}

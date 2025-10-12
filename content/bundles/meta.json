@@ -1,0 +1,11 @@
+{
+	"title": "SOPIA v3 | 번들",
+	"description": "SOPIA v3 번들에 대한 사용법",
+	"icon": "Puzzle",
+	"root": true,
+	"pages": [
+		"index",
+		"---공식 번들---",
+		"starter-pack"
+	]
+}

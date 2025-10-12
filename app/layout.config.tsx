@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { BookIcon } from "lucide-react";
+import { BookIcon, PuzzleIcon } from "lucide-react";
 
 /**
  * Shared layout configurations
@@ -23,6 +23,12 @@ export const baseOptions: BaseLayoutProps = {
 			icon: <BookIcon />,
 			url: "/docs",
 			text: "사용법",
+			secondary: false,
+		},
+		{
+			icon: <PuzzleIcon />,
+			url: "/bundles",
+			text: "번들",
 			secondary: false,
 		},
 	],
