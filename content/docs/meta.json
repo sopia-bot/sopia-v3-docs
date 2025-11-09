@@ -13,6 +13,7 @@
 		"join-live",
 		"bot-message",
 		"menual-backup",
-		"spoon-taxi"
+		"spoon-taxi",
+		"backup-restore"
 	]
 }
