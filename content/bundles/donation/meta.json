@@ -1,0 +1,10 @@
+{
+    "title": "도네이션 번들",
+    "description": "도네이션 번들에 대한 소개",
+    "icon": "MicVocal",
+    "pages": [
+        "template-guide",
+        "effect-sound-guide",
+        "settings"
+    ]
+}

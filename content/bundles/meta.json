@@ -6,6 +6,8 @@
 	"pages": [
 		"index",
 		"---공식 번들---",
+		"donation",
+		"request-song",
 		"starter-pack"
 	]
 }

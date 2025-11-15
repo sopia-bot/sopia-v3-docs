@@ -1,0 +1,12 @@
+{
+    "title": "신청곡 번들",
+    "description": "신청곡 번들에 대한 소개",
+    "icon": "Music",
+    "pages": [
+        "commands",
+        "free-requests",
+        "paid-requests",
+        "song-management",
+        "ticket-distribution"
+    ]
+}
