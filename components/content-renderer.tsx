@@ -70,11 +70,11 @@ function renderNode(node: TNode, userId?: string): React.ReactNode {
 		case "h5":
 		case "h6":
 			return <HeadingElement {...element} />;
-		case "blockquote":
-			return <BlockquoteElement {...element} />;
-		case "code_block":
-			return <CodeBlockElement {...element} />;
-		case "ul":
+	case "blockquote":
+		return <BlockquoteElement {...element} />;
+	case "code_block":
+		return <CodeBlockElement {...(element as any)} />;
+	case "ul":
 		case "ol":
 			return <ListElement {...element} />;
 		case "li":
