@@ -22,7 +22,6 @@ function ExtensionLoaderContent() {
 		// 확장 프로그램 설치 완료 후 돌아온 경우
 		if (isComplete) {
 			const savedRedirectUrl = localStorage.getItem(REDIRECT_STORAGE_KEY);
-			console.log("complete", savedRedirectUrl);
 			if (savedRedirectUrl) {
 				localStorage.removeItem(REDIRECT_STORAGE_KEY);
 				setStatus("redirecting");
