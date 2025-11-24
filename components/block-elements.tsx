@@ -1226,6 +1226,23 @@ export function DataTableElement(props: DataTableType) {
 		},
 	});
 
+	// 반응형 페이지네이션 처리
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth < 768) {
+				table.setPageSize(5);
+			} else {
+				table.setPageSize(10);
+			}
+		};
+
+		// 초기 실행
+		handleResize();
+
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, [table]);
+
 	// 모바일 정렬 핸들러
 	const handleMobileSorting = (columnId: string) => {
 		const column = table.getColumn(columnId);
