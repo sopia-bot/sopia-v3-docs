@@ -1328,20 +1328,27 @@ export function DataTableElement(props: DataTableType) {
 			<div className="block md:hidden space-y-4">
 				{table.getRowModel().rows?.length ? (
 					table.getRowModel().rows.map((row) => (
-						<Card key={row.id}>
-							<CardContent className="pt-6">
-								<div className="space-y-3">
-									{props.columns.map((col, index) => {
+						<Card key={row.id} className="overflow-hidden">
+							{/* 첫 번째 컬럼을 헤더로 사용 */}
+							<div className="bg-gray-200 dark:bg-white/5 p-3 border-b border-border">
+								<div className="text-xs text-muted-foreground font-medium mb-0.5">
+									{props.columns[0].name}
+								</div>
+								<div className="font-bold text-base break-words">
+									{row.getValue(`column${props.columns[0].id}`) as string || "-"}
+								</div>
+							</div>
+							
+							<CardContent className="p-3">
+								<div className="grid grid-cols-2 gap-x-4 gap-y-3">
+									{props.columns.slice(1).map((col) => {
 										const value = row.getValue(`column${col.id}`) as string;
 										return (
-											<div
-												key={col.id}
-												className={index !== props.columns.length - 1 ? "border-b border-border pb-3" : ""}
-											>
-												<div className="text-xs text-muted-foreground font-semibold mb-1">
+											<div key={col.id}>
+												<div className="text-xs text-muted-foreground font-medium mb-0.5">
 													{col.name}
 												</div>
-												<div className="text-sm break-words">
+												<div className="text-sm font-medium break-words">
 													{value || "-"}
 												</div>
 											</div>
