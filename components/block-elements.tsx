@@ -471,7 +471,6 @@ export function LinkElement(props: LinkType) {
 // 캘린더 (Calendar) - 커스텀 구현
 export function CalendarElement(props: CalendarType) {
 	const [currentDate, setCurrentDate] = useState(new Date());
-	const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
 	// 달력 날짜 생성
@@ -753,7 +752,10 @@ export function CalendarElement(props: CalendarType) {
 														<button
 															key={`desktop-${event.id}-${day.toString()}`}
 															type="button"
-															onClick={() => setSelectedEvent(event)}
+															onClick={(e) => {
+																e.stopPropagation();
+																setSelectedDate(day);
+															}}
 															className={`w-full text-left px-3 py-2 text-xs font-semibold transition-all hover:brightness-110 shadow-sm ${colorClass} ${roundedClass} ${borderClass}`}
 															title={`${event.title}\n${format(eventStart, "yyyy-MM-dd")} ~ ${format(eventEnd, "yyyy-MM-dd")}`}
 														>
@@ -807,8 +809,8 @@ export function CalendarElement(props: CalendarType) {
 				</div>
 			</div>
 
-			{/* 날짜 선택 다이얼로그 (모바일용 리스트 뷰) */}
-			{selectedDate && !selectedEvent && (
+			{/* 날짜 선택 다이얼로그 */}
+			{selectedDate && (
 				<div
 					className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4"
 					onClick={() => setSelectedDate(null)}
@@ -847,11 +849,9 @@ export function CalendarElement(props: CalendarType) {
 
 						<div className="space-y-3">
 							{getEventsForDate(selectedDate).map((event) => (
-								<button
+								<div
 									key={event.id}
-									type="button"
-									onClick={() => setSelectedEvent(event)}
-									className="w-full text-left p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-100 dark:border-gray-700"
+									className="w-full text-left p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700"
 								>
 									<div className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
 										{event.title}
@@ -865,127 +865,18 @@ export function CalendarElement(props: CalendarType) {
 											</>
 										)}
 									</div>
-								</button>
+									{event.description && (
+										<div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+											{event.description}
+										</div>
+									)}
+								</div>
 							))}
 						</div>
 					</div>
 				</div>
 			)}
 
-			{/* 이벤트 상세 다이얼로그 */}
-			{selectedEvent && (
-				<div
-					className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4"
-					onClick={() => setSelectedEvent(null)}
-				>
-					<div
-						className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl max-w-md w-full p-6"
-						onClick={(e) => e.stopPropagation()}
-					>
-						<div className="flex items-start justify-between mb-4">
-							<h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-								{selectedEvent.title}
-							</h3>
-							<button
-								type="button"
-								onClick={() => setSelectedEvent(null)}
-								className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400"
-								aria-label="닫기"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="20"
-									height="20"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<title>Close</title>
-									<line x1="18" y1="6" x2="6" y2="18" />
-									<line x1="6" y1="6" x2="18" y2="18" />
-								</svg>
-							</button>
-						</div>
-
-						{selectedEvent.description && (
-							<p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
-								{selectedEvent.description}
-							</p>
-						)}
-
-						<div className="space-y-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
-							<div className="flex items-start gap-3">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="20"
-									height="20"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									className="text-blue-600 dark:text-blue-400 mt-0.5"
-								>
-									<title>Calendar</title>
-									<rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-									<line x1="16" x2="16" y1="2" y2="6" />
-									<line x1="8" x2="8" y1="2" y2="6" />
-									<line x1="3" x2="21" y1="10" y2="10" />
-								</svg>
-								<div>
-									<div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-										{selectedEvent.allDay ? (
-											<>
-												{format(new Date(selectedEvent.start), "yyyy년 M월 d일", {
-													locale: ko,
-												})}
-												{!isSameDay(
-													new Date(selectedEvent.start),
-													new Date(selectedEvent.end),
-												) && (
-													<>
-														{" ~ "}
-														{format(new Date(selectedEvent.end), "yyyy년 M월 d일", {
-															locale: ko,
-														})}
-													</>
-												)}
-											</>
-										) : (
-											<>
-												{format(
-													new Date(selectedEvent.start),
-													"yyyy년 M월 d일 HH:mm",
-													{ locale: ko },
-												)}
-												{" ~ "}
-												{format(new Date(selectedEvent.end), "yyyy년 M월 d일 HH:mm", {
-													locale: ko,
-												})}
-											</>
-										)}
-									</div>
-									<div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-										{selectedEvent.allDay ? "종일" : "시간 지정"}
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<button
-							type="button"
-							onClick={() => setSelectedEvent(null)}
-							className="mt-6 w-full py-3 px-4 bg-blue-600 dark:bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors shadow-md"
-						>
-							확인
-						</button>
-					</div>
-				</div>
-			)}
 		</>
 	);
 }
