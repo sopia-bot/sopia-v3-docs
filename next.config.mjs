@@ -6,7 +6,12 @@ const withMDX = createMDX();
 const config = {
 	reactStrictMode: true,
 	images: {
-		remotePatterns: [new URL("http://kr-cdn.spooncast.net/**")],
+		remotePatterns: [
+			new URL("http://kr-cdn.spooncast.net/**"),
+			new URL("http://localhost:3000/**"),
+			new URL("https://localhost:3000/**"),
+			new URL("https://api.sopia.dev/**"),
+		],
 	},
 	transpilePackages: ["next-mdx-remote"],
 };

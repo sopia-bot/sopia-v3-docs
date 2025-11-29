@@ -73,6 +73,7 @@ import {
 import { ko } from "date-fns/locale";
 import { Callout } from "fumadocs-ui/components/callout";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
+import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 
 // 단락 (Paragraph)
 export function ParagraphElement(props: TElement) {
@@ -402,11 +403,10 @@ export function TableCellElement(props: TElement) {
 }
 
 // 이미지 (Image)
+// DJ Board 이미지 노드 구조 지원: initialWidth, initialHeight, isUpload, name 필드
+// fumadocs-ui의 ImageZoom 컴포넌트를 사용하여 클릭 시 확대 가능
 export function ImageElement(props: ImageType) {
-	const [error, setError] = useState(false);
-
 	const containerStyle: React.CSSProperties = {};
-	const imgStyle: React.CSSProperties = {};
 
 	if (props.align) {
 		if (props.align === "center") {
@@ -418,36 +418,39 @@ export function ImageElement(props: ImageType) {
 		}
 	}
 
-	if (props.width) imgStyle.width = props.width;
-	if (props.height) imgStyle.height = props.height;
+	// DJ Board 업로드 이미지: initialWidth/initialHeight 사용
+	// 기존 이미지: width/height 사용
+	const rawWidth = props.width ?? props.initialWidth;
+	const rawHeight = props.height ?? props.initialHeight;
 
-	if (error) {
-		return (
-			<div className="my-4 p-6 bg-muted text-center rounded-lg">
-				<p className="text-muted-foreground">이미지를 불러올 수 없습니다</p>
-				<a
-					href={props.url}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="text-primary underline text-sm"
-				>
-					원본 링크 열기
-				</a>
-			</div>
-		);
-	}
+	const width = typeof rawWidth === "string" ? parseInt(rawWidth, 10) || undefined : rawWidth;
+	const height = typeof rawHeight === "string" ? parseInt(rawHeight, 10) || undefined : rawHeight;
+
+	// width/height가 없는 경우 fill 모드 사용
+	const hasDimensions = width && height;
 
 	return (
 		<div style={containerStyle} className="my-4">
-			<img
-				src={props.url}
-				alt={props.alt || ""}
-				style={imgStyle}
-				onError={() => setError(true)}
-				loading="lazy"
-				decoding="async"
-				className="rounded-lg"
-			/>
+			{hasDimensions ? (
+				<ImageZoom
+					src={props.url}
+					alt={props.alt || props.name || ""}
+					width={width}
+					height={height}
+					className="rounded-lg"
+					style={{ maxWidth: "100%", height: "auto" }}
+				/>
+			) : (
+				<div className="relative w-full" style={{ maxWidth: width || "100%" }}>
+					<ImageZoom
+						src={props.url}
+						alt={props.alt || props.name || ""}
+						fill
+						className="rounded-lg !relative !h-auto !w-full"
+						sizes="(max-width: 768px) 100vw, 800px"
+					/>
+				</div>
+			)}
 		</div>
 	);
 }

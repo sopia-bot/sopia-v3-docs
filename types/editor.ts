@@ -88,8 +88,14 @@ export interface ImageElement extends TElement {
 	type: "img";
 	url: string;
 	alt?: string;
-	width?: string;
-	height?: string;
+	width?: string | number;
+	height?: string | number;
+	// DJ Board 이미지 업로드 추가 필드
+	initialWidth?: number;
+	initialHeight?: number;
+	isUpload?: boolean;
+	name?: string;
+	placeholderId?: string;
 }
 
 export interface LinkElement extends TElement {
