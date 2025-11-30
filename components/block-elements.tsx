@@ -445,7 +445,6 @@ export function ImageElement(props: ImageType) {
 					<ImageZoom
 						src={props.url}
 						alt={props.alt || props.name || ""}
-						fill
 						className="rounded-lg !relative !h-auto !w-full"
 						sizes="(max-width: 768px) 100vw, 800px"
 					/>
