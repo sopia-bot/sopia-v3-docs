@@ -12,7 +12,7 @@ export default function UserProfile({
     const [user, setUser] = useState<any>(null);
     useEffect(() => {
         const fetchUser = async () => {
-            const result = await fetch("https://kr-api.spooncast.net/users/2100369").then(
+            const result = await fetch("https://kr-api.spooncast.net/users/9781016").then(
                 (res) => res.json(),
             );
         
@@ -50,15 +50,15 @@ export default function UserProfile({
             </div>
             <div>
                 <Link
-                    href={"https://www.spooncast.net/kr/channel/2100369/tab/home"}
+                    href={"https://www.spooncast.net/kr/channel/9781016/tab/home"}
                     target="_blank"
-                    className="text-xl font-bold text-card-foreground hover:underline"
+                    className="text-xl text-card-foreground hover:underline"
                 >
-                    {user?.nickname || "연하영"}
+                    <span className="font-bold">파트너 DJ: </span>{user?.nickname || "연하영"}
                 </Link>
-                <p className="text-md text-muted-foreground">
+                {/* <p className="text-md text-muted-foreground">
                     팔로워: {followerStr(user?.follower_count || 0)}
-                </p>
+                </p> */}
             </div>
         </div>
     );

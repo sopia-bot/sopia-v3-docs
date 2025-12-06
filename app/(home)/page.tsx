@@ -8,6 +8,7 @@ import {
 	Music,
 	Package,
 	Quote as QuoteIcon,
+	Image as ImageIcon,
 	User as UserIcon,
 	UsersIcon,
 } from "lucide-react"; // UsersIcon 추가
@@ -167,6 +168,11 @@ export default async function HomePage() {
 							title="신청곡 관리"
 							description="복잡한 신청곡 목록을 깔끔하게 정리하고, 중복 신청 방지, 우선순위 설정 등 편리한 관리 기능을 제공합니다."
 							icon={<Music className="h-8 w-8 text-blue-600" />}
+						/>
+						<FeatureCard
+							title="스푼 박제"
+							description="이전 방송을 다시 보고, 받았던 채팅이나 선물을 캡처하여 예쁜 사진을 만들 수 있습니다."
+							icon={<ImageIcon className="h-8 w-8 text-blue-600" />}
 						/>
 						<FeatureCard
 							title="확장 가능한 번들"
