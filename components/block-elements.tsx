@@ -74,6 +74,9 @@ import { ko } from "date-fns/locale";
 import { Callout } from "fumadocs-ui/components/callout";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { ImageZoom } from "fumadocs-ui/components/image-zoom";
+import Image from "next/image";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 // 단락 (Paragraph)
 export function ParagraphElement(props: TElement) {
@@ -431,7 +434,37 @@ export function ImageElement(props: ImageType) {
 
 	// 같은 서버 내 API 이미지는 최적화 비활성화 (ETIMEDOUT 방지)
 	const isInternalApi = props.url?.includes("api.sopia.dev") || props.url?.includes("localhost");
-	console.log('width', width, height)
+
+	// 내부 API 이미지: Zoom + next/image(unoptimized)로 줌 기능 유지하면서 프록시 우회
+	if (isInternalApi) {
+		return (
+			<div style={containerStyle} className="my-4">
+				<Zoom>
+					{hasDimensions ? (
+						<Image
+							src={props.url}
+							alt={props.alt || props.name || ""}
+							width={width}
+							height={height}
+							className="rounded-lg"
+							style={{ maxWidth: "100%", height: "auto" }}
+							unoptimized
+						/>
+					) : (
+						<Image
+							src={props.url}
+							alt={props.alt || props.name || ""}
+							width={480}
+							height={600}
+							className="rounded-lg"
+							style={{ maxWidth: "100%", height: "auto" }}
+							unoptimized
+						/>
+					)}
+				</Zoom>
+			</div>
+		);
+	}
 
 	return (
 		<div style={containerStyle} className="my-4">
@@ -443,7 +476,6 @@ export function ImageElement(props: ImageType) {
 					height={height}
 					className="rounded-lg"
 					style={{ maxWidth: "100%", height: "auto" }}
-					unoptimized={isInternalApi}
 				/>
 			) : (
 				<div className="relative w-full" style={{ maxWidth: width || "100%" }}>
@@ -452,8 +484,6 @@ export function ImageElement(props: ImageType) {
 						alt={props.alt || props.name || ""}
 						className="rounded-lg !relative !h-auto !w-full"
 						sizes="(max-width: 768px) 100vw, 800px"
-						fill
-						unoptimized={isInternalApi}
 					/>
 				</div>
 			)}
