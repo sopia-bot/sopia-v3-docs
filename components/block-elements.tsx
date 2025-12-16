@@ -429,6 +429,10 @@ export function ImageElement(props: ImageType) {
 	// width/height가 없는 경우 fill 모드 사용
 	const hasDimensions = width && height;
 
+	// 같은 서버 내 API 이미지는 최적화 비활성화 (ETIMEDOUT 방지)
+	const isInternalApi = props.url?.includes("api.sopia.dev") || props.url?.includes("localhost");
+	console.log('width', width, height)
+
 	return (
 		<div style={containerStyle} className="my-4">
 			{hasDimensions ? (
@@ -439,6 +443,7 @@ export function ImageElement(props: ImageType) {
 					height={height}
 					className="rounded-lg"
 					style={{ maxWidth: "100%", height: "auto" }}
+					unoptimized={isInternalApi}
 				/>
 			) : (
 				<div className="relative w-full" style={{ maxWidth: width || "100%" }}>
@@ -447,6 +452,8 @@ export function ImageElement(props: ImageType) {
 						alt={props.alt || props.name || ""}
 						className="rounded-lg !relative !h-auto !w-full"
 						sizes="(max-width: 768px) 100vw, 800px"
+						fill
+						unoptimized={isInternalApi}
 					/>
 				</div>
 			)}
